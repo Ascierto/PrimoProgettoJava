@@ -35,6 +35,9 @@
 			        <li class="nav-item">
 			          <a class="nav-link active" aria-current="page" href="InsertStudenteToDocenteServlet">AssegnaStudente</a>
 			        </li>
+			         <li class="nav-item">
+			        	<a class="nav-link" href="ShowStudentiAssocServlet">StudentiAssoc</a>
+			        </li>
 			        <li class="nav-item">
 			          <a class="nav-link" href="CalcolatriceServlet">CalcolatriceServlet</a>
 			        </li>

@@ -11,21 +11,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.Docente;
 import model.Studente;
 import service.DocenteStudenteService;
 import service.StudenteService;
 
 /**
- * Servlet implementation class InsertStudenteToDocenteServlet
+ * Servlet implementation class ShowStudentiAssocServlet
  */
-@WebServlet("/InsertStudenteToDocenteServlet")
-public class InsertStudenteToDocenteServlet extends HttpServlet {
+@WebServlet("/ShowStudentiAssocServlet")
+public class ShowStudentiAssocServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertStudenteToDocenteServlet() {
+    public ShowStudentiAssocServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -46,16 +47,20 @@ public class InsertStudenteToDocenteServlet extends HttpServlet {
         	System.out.println("Tentativo di attacco");
 		}
 		
-		try {
-			ArrayList<Studente> studenti = StudenteService.selectAllStudents();
-			request.setAttribute("studenti", studenti);
+		Docente loggedDocente = (Docente) session.getAttribute("loggedDocente");
 			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		
+		try {
+			ArrayList<Studente> studentiAssoc = DocenteStudenteService.showStudentiDocente(loggedDocente.getId_docente());			
+			request.setAttribute("studentiAssoc", studentiAssoc);
+			
+		}catch(SQLException e) {
 			e.printStackTrace();
 		}
+	
 		
-		request.getRequestDispatcher("/insertStudenteToDocente.jsp").forward(request, response);
+		
+		request.getRequestDispatcher("/showStudentiAssoc.jsp").forward(request, response);
 	}
 
 	/**
@@ -63,31 +68,7 @@ public class InsertStudenteToDocenteServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		HttpSession session = request.getSession();
-		
-		String id_studente = request.getParameter("id_studente");
-		String id_docente = request.getParameter("id_docente");
-		
-		try {
-			DocenteStudenteService.insertStudenteToDocente(Integer.parseInt(id_docente), Integer.parseInt(id_studente));
-			
-			request.setAttribute("stato", "Studente assegnato");
-			
-			ArrayList<Studente> studentiAssoc = DocenteStudenteService.showStudentiDocente(Integer.parseInt(id_docente));			
-			request.setAttribute("studentiAssoc", studentiAssoc);
-			
-			request.getRequestDispatcher("/showStudentiAssoc.jsp").forward(request, response);
-		} catch (NumberFormatException | SQLException e) {
-			// TODO Auto-generated catch block
-			
-			request.setAttribute("error", "Ops c'è stato un problema");
-			request.getRequestDispatcher("/insertStudenteToDocente.jsp").forward(request, response);
-			e.printStackTrace();
-		}
-		
-		//presi questi 2 parametri posso performare la insert nella pivot(che scrivo nel service)
-		
-		
+		doGet(request, response);
 	}
 
 }
