@@ -35,14 +35,24 @@ public class DeleteServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		HttpSession session = request.getSession();
+//		HttpSession session = request.getSession();
+//		
+//		if(session.getAttribute("loggedDocente") == null) {
+//			
+//			request.setAttribute("error", "Accesso non consentito");
+//        	request.getRequestDispatcher("/loginDocente.jsp").forward(request, response);
+//        	System.out.println("Tentativo di attacco");
+//		}
 		
-		if(session.getAttribute("loggedDocente") == null) {
-			
-			request.setAttribute("error", "Accesso non consentito");
-        	request.getRequestDispatcher("/loginDocente.jsp").forward(request, response);
-        	System.out.println("Tentativo di attacco");
-		}
+
+		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		
 		String id_studente = request.getParameter("id_studente");
 		
@@ -60,15 +70,6 @@ public class DeleteServlet extends HttpServlet {
 			request.getRequestDispatcher("/studenti.jsp").forward(request, response);
 			e.printStackTrace();
 		}
-		
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 
 }

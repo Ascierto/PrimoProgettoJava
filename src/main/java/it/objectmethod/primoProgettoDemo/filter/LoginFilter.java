@@ -43,17 +43,21 @@ public class LoginFilter extends HttpFilter implements Filter {
 		HttpSession session = req.getSession();
 		
 		//recuperaro l'oggetto docente loggato
-
-		Docente loggedDocente = (Docente) session.getAttribute("loggedDocente");
-		if (loggedDocente == null) { 
+		try {
 			
-			//un utente generico ha tentato di accedere ai percorsi protetti
-			request.setAttribute("error", "Filtro funzionante nn processo request");
-        	request.getRequestDispatcher("/loginDocente.jsp").forward(request, response);
-		}else {
-			
-			// pass the request along the filter chain
-			chain.doFilter(request, response);
+			Docente loggedDocente = (Docente) session.getAttribute("loggedDocente");
+			if (loggedDocente == null) { 
+				
+				//un utente generico ha tentato di accedere ai percorsi protetti
+				request.setAttribute("error", "Filtro funzionante nn processo request");
+				request.getRequestDispatcher("/loginDocente.jsp").forward(request, response);
+			}else {
+				
+				// pass the request along the filter chain
+				chain.doFilter(request, response);
+			}
+		}catch(IllegalStateException e) {
+			e.printStackTrace();
 		}
 	}
 

@@ -23,14 +23,14 @@ public class CalcolatriceServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		HttpSession session = request.getSession();
-		
-		if(session.getAttribute("loggedDocente") == null) {
-			
-			request.setAttribute("error", "Accesso non consentito");
-        	request.getRequestDispatcher("/loginDocente.jsp").forward(request, response);
-        	System.out.println("Tentativo di attacco");
-		}
+//		HttpSession session = request.getSession();
+//		
+//		if(session.getAttribute("loggedDocente") == null) {
+//			
+//			request.setAttribute("error", "Accesso non consentito");
+//        	request.getRequestDispatcher("/loginDocente.jsp").forward(request, response);
+//        	System.out.println("Tentativo di attacco");
+//		}
 		
 		String a = request.getParameter("num1");
 		request.setAttribute("num1", a);

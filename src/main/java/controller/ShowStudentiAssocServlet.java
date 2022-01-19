@@ -40,12 +40,7 @@ public class ShowStudentiAssocServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		
-		if(session.getAttribute("loggedDocente") == null) {
-			
-			request.setAttribute("error", "Accesso non consentito");
-        	request.getRequestDispatcher("/loginDocente.jsp").forward(request, response);
-        	System.out.println("Tentativo di attacco");
-		}
+
 		
 		Docente loggedDocente = (Docente) session.getAttribute("loggedDocente");
 			

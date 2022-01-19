@@ -34,14 +34,6 @@ public class UpdateServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		HttpSession session = request.getSession();
-		
-		if(session.getAttribute("loggedDocente") == null) {
-			
-			request.setAttribute("error", "Accesso non consentito");
-        	request.getRequestDispatcher("/loginDocente.jsp").forward(request, response);
-        	System.out.println("Tentativo di attacco");
-		}
 		
 		String id_studente = request.getParameter("id_studente");
 		
